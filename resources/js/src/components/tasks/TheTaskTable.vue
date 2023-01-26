@@ -23,7 +23,7 @@
                 </v-tooltip>
             </template>
             <template v-slot:item.target_date="{ item }">
-                <span dir="ltr">{{ formatDateToDateTimeLocalString(item.target_date)}}</span>
+                <span dir="ltr">{{ item.target_date}}</span>
             </template>
             <template v-slot:item.id="{ item }">
                 <v-tooltip bottom>
@@ -149,7 +149,6 @@
             canDeleteTask(task){
                 let taskTargetTimestemp = this.formatDateTimeTounixTimstemp(task.target_date);
                 let inSixDaysTimestemp = (24*60*60*6) + this.formatDateTimeTounixTimstemp(Date(Date.now()));//add 6 days
-                console.log(taskTargetTimestemp , inSixDaysTimestemp);
                 if(taskTargetTimestemp > inSixDaysTimestemp){
                     return true;
                 }

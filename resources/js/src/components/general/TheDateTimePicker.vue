@@ -7,7 +7,7 @@
             <v-menu
                 ref="menu"
                 top
-                v-model="timeMenu"
+                v-model="menu"
                 :close-on-content-click="false"
                 transition="scale-transition"
 
@@ -51,9 +51,6 @@
 <script>
 
     import {mapGetters} from "vuex";
-    import {
-        formatDateToDateTimeLocalString
-    } from "../../helpers/formatter/dateFormatter";
 
     export default {
         props: {
@@ -95,12 +92,9 @@
             },
         },
         data: () => ({
-            formatDateToDateTimeLocalString,
-            dateMenu: false,
             date: null,
-            timeMenu: false,
+            menu: false,
             time: null,
-            show: false,
         }),
         methods: {
             clearAll() {
@@ -114,15 +108,11 @@
                 isLoading: 'isLoading',
             }),
             submittableDateTime() {
-                if (!this.time || !this.date) {
-                    return formatDateToDateTimeLocalString(this.dateTime);
+                if (!this.date) {
+                    return this.dateTime;
                 }
-                let date = new Date(this.date);
-                const timeArray = this.time.split(":");
-                date.setHours(timeArray[0]);
-                date.setMinutes(timeArray[1]);
-                date = formatDateToDateTimeLocalString(date);
-                this.dateTime = date;
+                let newDatetime =  this.date + ' ' + (this.time ? this.time : '00:00') ;
+                this.dateTime = newDatetime;
                 return this.dateTime;
             },
             dateTime: {
